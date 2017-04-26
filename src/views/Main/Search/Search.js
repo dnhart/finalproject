@@ -53,7 +53,6 @@ export class Search extends React.Component{
 
     return (
       <div className="main-container">
-        osei
 		    <div className="row">
 			    <div className="col-md-8">
         {/* Note how we pass the setQuery function to enable Query to perform searches */}

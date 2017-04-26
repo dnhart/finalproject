@@ -28,8 +28,9 @@ class Results extends React.Component {
   }
 
   // A helper method for mapping through our articles and outputting some HTML
-  renderArticles() {
-    return this.props.results.docs.map(function(job, index) {
+  /*renderArticles() {
+    
+    return this.props.results.map(function(job, index) {
 
       // Each article thus reperesents a list group item with a known index
       return (
@@ -46,26 +47,29 @@ class Results extends React.Component {
 
                 {/*
                   By using an arrow function callback to wrap this.handleClick,
-                  we can pass in an article as an argument
-                */}
-                <button className="btn btn-primary" onClick={() => this.handleClick(article)}>Save</button>
-              </span>
-            </h3>
-            <p>Date Published: {article.pub_date}</p>
+                  we can pass in an article as an argument 
+                }               
+  //               <button className="btn btn-primary" onClick={() => this.handleClick(article)}>Save</button>
+  //             </span>
+  //           </h3>
+  //           <p>Date Published: {article.pub_date}</p>
 
-          </li>
+  //         </li>
 
-        </div>
-      );
+  //       </div>
+  //     );
 
-    }.bind(this));
+  //   }.bind(this));
 
-  }
+  // }*/
 
-  // A helper method for rendering a container to hold all of our articles
+  // // A helper method for rendering a container to hold all of our articles
   renderContainer() {
-    return this.props.results.docs.map(function(job, index){
-     console.log(job.snippet);
+    let jobResults = this.props.results;
+    return Object.keys(jobResults).map(function(keyName, index){
+      console.log(jobResults[keyName])
+      let job = jobResults[keyName];
+
      var snippet = job.snippet;
     snippet=snippet.replace(/<[a-zA-Z\/][^>]*>/g, '');
     console.log(snippet);
@@ -92,12 +96,13 @@ class Results extends React.Component {
               
                )  
               }.bind(this));
+
   }
   
 
   render() {
     // If we have no articles, render this HTML
-    if (!this.props.results.docs) {
+    if (!this.props.results) {
       return (
       <div className="panel panel-primary">
 					<div className="panel-heading">

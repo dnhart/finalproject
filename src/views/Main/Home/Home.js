@@ -53,7 +53,7 @@ export class Home extends React.Component {
     // this.showLogout();
     return (
 
-<div className="container">
+<div className="main-container">
 		{/*<!-- Navbar -->*/}
 		<nav className="navbar navbar-default" role="navigation">
 			<div className="container-fluid">

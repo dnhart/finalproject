@@ -27,7 +27,7 @@ export const makeMainRoutes = () => {
       <Route path="home" component={Home} onEnter={requireAuth}>
                 {/*<IndexRedirect to="/Search" />*/}
       {/* If user selects Search or Saved show the appropriate component */}
-            <Route path="Search" component={Search} auth={auth}  />
+            <Route path="Search" component={Search} onEnter={requireAuth}  />
             <Route path="Saved" component={Saved} auth={auth} />
         
         

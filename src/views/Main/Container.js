@@ -17,7 +17,7 @@ export class Container extends React.Component {
 
     return (
  // We can only render a single div. So we need to group everything inside of this main-container one
-<div className="main-container">
+<div className="content">
     
        {children}
 </div>
