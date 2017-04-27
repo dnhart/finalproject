@@ -2,6 +2,7 @@ import { EventEmitter } from 'events'
 import { isTokenExpired } from './jwtHelper'
 import Auth0Lock from 'auth0-lock'
 import { browserHistory } from 'react-router'
+import helpers from './helpers'
 
 export default class AuthService extends EventEmitter {
   constructor(clientId, domain) {
@@ -50,15 +51,33 @@ export default class AuthService extends EventEmitter {
   loggedIn(){
     // Checks if there is a saved token and it's still valid
     const token = this.getToken()
+    console.log('loggedIn verified: '+token)
     return !!token && !isTokenExpired(token)
   }
 
   setProfile(profile){
+    var thing = JSON.stringify(profile);
     // Saves profile data to localStorage
     localStorage.setItem('profile', JSON.stringify(profile))
-    // Triggers profile_updated event to update the UI
-    this.emit('profile_updated', profile)
-  }
+    
+    helpers.getUser(thing,  (results) => {
+      if (results){
+            this.emit('profile_updated', profile)
+        
+    } else {
+      helpers.createUser(thing,  (results) =>{
+          if(results){
+              this.emit('profile_updated', profile)
+               
+          } else{
+            console.log('user not created')
+          }
+        })
+    
+    }
+    })
+       // Triggers profile_updated event to update the UI
+   }
 
   getProfile(){
     // Retrieves the profile data from localStorage

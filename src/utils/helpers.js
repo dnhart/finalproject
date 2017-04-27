@@ -42,14 +42,32 @@ var helpers = {
 //delete next two lines when going live++++++++
       // return axios.get("/logger")
       // .then(function(userData) {
-    var userData = jobData; 
+    var data = jobData; 
 
-      console.log(userData);
-      var jobResults = userData.results;
+      console.log(data);
+      var jobResults = data.results;
       callback(jobResults);
     // });
 
 //   })
+}, 
+
+createUser: function(profile, callback){
+  var userInfo = JSON.parse(profile)
+  console.log('from createUser: '+ userInfo.email)
+  return axios.post("/api").then(function(results){
+      callback(results);
+  })
+
+},
+
+getUser: function(profile, callback){
+  var userInfo = JSON.parse(profile)
+  console.log('from getUser: '+ userInfo.email)
+    return axios.get("/api").then(function(results){
+      callback(results);
+    })
+
 }
 }
   // This will return any saved articles from our database

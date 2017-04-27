@@ -6,7 +6,7 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 
 // Require Schemas
-// var Job = require("./server/model");
+var Profile = require("./models/profiles");
 //comment out var data when going live ++++++++
 var data = require('./jobs.json');
 // Create Instance of Express
@@ -25,7 +25,7 @@ app.use(express.static("./public"));
 // -------------------------------------------------
 
 // MongoDB Configuration configuration
-mongoose.connect("mongodb://admin:reactrocks@ds023593.mlab.com:23593/heroku_pg676kmk");
+mongoose.connect('mongodb://heroku_6q1m63tp:3bdgviq1pdon8qlght7dh3jau5@ds123351.mlab.com:23351/heroku_6q1m63tp');
 var db = mongoose.connection;
 
 db.on("error", function(err) {
@@ -36,38 +36,34 @@ db.once("open", function() {
   console.log("Mongoose connection successful.");
 });
 
+//Route to get a User 
 
+app.get("/api", function(req, res){
+  var request = req.body.email;
+  console.log("request from get: "+request)
+  Profiles.find({email:request}).exec(function(err, doc) {
 
-// -------------------------------------------------
-//Route to get users agent and IP 
-// app.post("/logger",function(req, res, next) {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        res.send(doc);
+      }
+    });
+});
 
-//       userdata = JSON.parse(localStorage.profile),
-//     user ={
-//             agent: userdata.agent,
-//             ip: userdata.ip
-//           },
-//   // var user = {
-//   //   agent: req.headers['user-agent'], // User Agent we get from headers
-//   //   referrer: req.headers['referrer'], //  Likewise for referrer
-//   //   ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress, // Get IP - allow for proxy
-//   //   screen: { // Get screen info that we passed in url post data
-//   //     width: req.param('width'),
-//   //     height: req.param('height')
-//   //   }
-//   // };
-//   // Store the user in your database
-//   // User.create(user)...
-//     res.send(user);
-// });
+app.post("/api", function(req, res){
+  var newUser = new Profile(req.body);
+  console.log("new profile data: "+req.body);
+  newUser.save(function(er, doc){
+    if (err){
+      console.log(err);
+    } else{
+      res.send(doc);
+    }
+  });
 
-
-//comment out this when going live ++++++++++
-// app.get("/logger", function(req, res) {
-//   res.send(data);
-// });
-
-
+});
 
 // // Route to get all saved articles
 // app.get("/api/saved", function(req, res) {

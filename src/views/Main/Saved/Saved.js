@@ -50,6 +50,7 @@ var Main = React.createClass({
 
   // A helper method for mapping through our articles and outputting some HTML
   renderArticles: function() {
+
     return this.state.savedArticles.map(function(article, index) {
 
       return (

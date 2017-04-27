@@ -11,21 +11,19 @@ class Results extends React.Component {
   constructor(props) {
     super(props)
     this.state =  { 
-      title: "",
-      url: "",
-      pubdate: ""
+
     };
   }
 
   // This code handles the sending of the search terms to the parent Search component
-  handleClick() {
-    console.log("CLICKED");
-    console.log(item);
+  // handleClick() {
+  //   console.log("CLICKED");
+  //   console.log(item);
 
-    // helpers.postSaved(item.headline.main, item.pub_date, item.web_url).then(function() {
-    //   console.log(item.web_url);
-    // });
-  }
+  //   // helpers.postSaved(item.headline.main, item.pub_date, item.web_url).then(function() {
+  //   //   console.log(item.web_url);
+  //   // });
+  // }
 
   // A helper method for mapping through our articles and outputting some HTML
   /*renderArticles() {

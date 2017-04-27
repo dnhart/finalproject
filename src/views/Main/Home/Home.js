@@ -3,6 +3,7 @@ import {Button} from 'react-bootstrap'
 import AuthService from 'utils/AuthService'
 import styles from './styles.module.css'
 import Search from '../Search/Search.js'
+import Profile from '../Profile/Profile.js'
 export class Home extends React.Component {
   static contextTypes = {
     router: T.object
@@ -71,9 +72,9 @@ export class Home extends React.Component {
 				{/*<!-- Collect the nav links, forms, and other content for toggling -->*/}
 				<div className="collapse navbar-collapse navbar-ex1-collapse">
 					<ul className="nav navbar-nav navbar-right" id="mainMenu">
-						<li><a href="#">Profile</a></li>
+						<li><a href="/home/profile">Profile</a></li>
 						<li><a href="#">Job Console</a></li>
-						<li><a href="#">Search</a></li>
+						<li><a href="/home/search">Search</a></li>
             <li> <Button onClick={this.logout.bind(this)}>Logout</Button></li>
 					</ul>
 				</div>     

@@ -6,7 +6,7 @@ import Home from './Home/Home'
 import Login from './Login/Login'
 import Search from './Search/Search'
 import Saved from './Saved/Saved'
-
+import Profile from './Profile/Profile'
 const auth = new AuthService(__AUTH0_CLIENT_ID__, __AUTH0_DOMAIN__);
 
 console.log(auth);
@@ -19,20 +19,32 @@ const requireAuth = (nextState, replace) => {
   }
 }
 
+// const requireProf = (nextState, replace) =>{
+//     if (!auth.loggedIn()) {
+//     replace({ pathname: '/login' })
+//   } else{
+//      auth.getProfile(profile, data =>{return data});
+
+     
+
+// }
+// }
+
+
 export const makeMainRoutes = () => {
   return (
 
     <Route path="/" component={Container} auth={auth}>
       <IndexRedirect to="/home/search" />
-      <Route path="home" component={Home} onEnter={requireAuth}>
+      <Route path="home" component={Home} auth={auth}>
                 {/*<IndexRedirect to="/Search" />*/}
       {/* If user selects Search or Saved show the appropriate component */}
             <Route path="Search" component={Search} onEnter={requireAuth}  />
             <Route path="Saved" component={Saved} auth={auth} />
-        
-        
-        </Route>
+            <Route path="Profile" component={Profile} auth={auth}  />
+      </Route>
       <Route path="login" component={Login} />
+
     </Route>
 
   )
