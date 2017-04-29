@@ -12,39 +12,39 @@ var helpers = {
   runQuery: function(jobTitle, location, callback) {
 
 //Uncomment this section when going live
-// var userData = JSON.parse(localStorage.profile);
+var userData = JSON.parse(localStorage.profile);
 
 
-//     // Adjust to get search terms in proper format
-//     console.log(userData);
-//     var formattedJobTitle = jobTitle.trim();
-//     var formattedLocation = location.trim();
-//     var userIP = userData.ip;
-//     var userAgent = userData.agent;
+    // Adjust to get search terms in proper format
+    console.log(userData);
+    var formattedJobTitle = jobTitle.trim();
+    var formattedLocation = location.trim();
+    var userIP = userData.ip;
+    var userAgent = userData.agent;
 
-//     console.log("Query Run");
-//     // Run a query using Axios. Then return the results as an object with an array.
-//     // See the Axios documentation for details on how we structured this with the params.
-//         return axios.get("http://api.indeed.com/ads/apisearch?publisher=7449293569846535&v=2&latlong=1&filter=1&format=json", {
+    console.log("Query Run");
+    // Run a query using Axios. Then return the results as an object with an array.
+    // See the Axios documentation for details on how we structured this with the params.
+        return axios.get("http://api.indeed.com/ads/apisearch?publisher=7449293569846535&v=2&latlong=1&filter=1&format=json", {
     
-//         params: {
-//             "l": formattedLocation,
-//             "userip": userIP,
-//             "useragent": userAgent,
-//             "q": formattedJobTitle
-//         }
+        params: {
+            "l": formattedLocation,
+            "userip": userIP,
+            "useragent": userAgent,
+            "q": formattedJobTitle
+        }
 
-//         })
-//     .then(function(data) {
+        })
+    .then(function(data) {
 
   //end uncomment section
 
 //delete next two lines when going live++++++++
       // return axios.get("/logger")
       // .then(function(userData) {
-    var data = jobData; 
+    // var data = jobData; 
 
-      console.log(data);
+    //   console.log(data);
       var jobResults = data.results;
       callback(jobResults);
     // });
