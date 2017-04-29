@@ -2,7 +2,7 @@
 var axios = require("axios");
 
 // NYT API Key (Replace with your own API Key)
-var APIKey = "7449293569846535";
+var APIKey = process.env.APIKey;
 var jobData = require('../../jobs.json');
 // Helper Functions
 var helpers = {
@@ -52,23 +52,26 @@ var helpers = {
 //   })
 }, 
 
-createUser: function(profile, callback){
+getUser: function(profile){
   var userInfo = JSON.parse(profile)
-  console.log('from createUser: '+ userInfo.email)
-  return axios.post("/api").then(function(results){
-      callback(results);
-  })
+  console.log('from getUser: '+ userInfo.email)
+    return axios.get("http://localhost:3001/api/Users").then(function(results){
+      // callback(results);
+      console.log(results);
+      return results;
+    })
 
 },
 
-getUser: function(profile, callback){
+createUser: function(profile, callback){
   var userInfo = JSON.parse(profile)
-  console.log('from getUser: '+ userInfo.email)
-    return axios.get("/api").then(function(results){
+  console.log('from createUser: '+ userInfo.email)
+  return axios.post("http://localhost:3001/api/Users").then(function(results){
       callback(results);
-    })
+  })
 
 }
+
 }
   // This will return any saved articles from our database
   // getSaved: function() {

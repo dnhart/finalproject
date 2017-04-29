@@ -12,7 +12,7 @@ var data = require('./jobs.json');
 // Create Instance of Express
 var app = express();
 var PORT = process.env.PORT || 3001; // Sets an initial port. We'll use this later in our listener
-
+var mongoURL = process.env.MONGO_URL;
 // Run Morgan for Logging
 app.use(logger("dev"));
 app.use(bodyParser.json());
@@ -20,12 +20,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
-app.use(express.static("./public"));
+app.use(express.static("/dist"));
 
 // -------------------------------------------------
-
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 // MongoDB Configuration configuration
-mongoose.connect('mongodb://heroku_6q1m63tp:3bdgviq1pdon8qlght7dh3jau5@ds123351.mlab.com:23351/heroku_6q1m63tp');
+mongoose.connect(mongoURL  || 'mongodb://localhost:27017/jobtool');
 var db = mongoose.connection;
 
 db.on("error", function(err) {
@@ -38,21 +42,25 @@ db.once("open", function() {
 
 //Route to get a User 
 
-app.get("/api", function(req, res){
-  var request = req.body.email;
-  console.log("request from get: "+request)
-  Profiles.find({email:request}).exec(function(err, doc) {
+app.get("http://localhost:3001/api/Users", function(req, res){
+  console.log("hello");
+  
+  // var request = req.body.email;
 
-      if (err) {
-        console.log(err);
-      }
-      else {
-        res.send(doc);
-      }
-    });
+  res.json({test: "hello"});
+  // console.log("request from get: "+request)
+  // Profiles.find({email:request}).exec(function(err, doc) {
+
+  //     if (err) {
+  //       console.log(err);
+  //     }
+  //     else {
+  //       res.send(doc);
+  //     }
+  //   });
 });
 
-app.post("/api", function(req, res){
+app.post("http://localhost:3001/api/Users", function(req, res){
   var newUser = new Profile(req.body);
   console.log("new profile data: "+req.body);
   newUser.save(function(er, doc){
@@ -113,7 +121,7 @@ app.post("/api", function(req, res){
 
 // Any non API GET routes will be directed to our React App and handled by React Router
 app.get("*", function(req, res) {
-  res.sendFile(__dirname + "./dist/index.html");
+  res.sendFile(__dirname + "/dist/index.html");
 });
 
 

@@ -56,27 +56,11 @@ export default class AuthService extends EventEmitter {
   }
 
   setProfile(profile){
-    var thing = JSON.stringify(profile);
+    console.log("setprofile: "+profile);
     // Saves profile data to localStorage
     localStorage.setItem('profile', JSON.stringify(profile))
-    
-    helpers.getUser(thing,  (results) => {
-      if (results){
-            this.emit('profile_updated', profile)
-        
-    } else {
-      helpers.createUser(thing,  (results) =>{
-          if(results){
-              this.emit('profile_updated', profile)
-               
-          } else{
-            console.log('user not created')
-          }
-        })
-    
-    }
-    })
-       // Triggers profile_updated event to update the UI
+   // Triggers profile_updated event to update the UI
+       this.emit('profile_updated', profile)
    }
 
   getProfile(){
